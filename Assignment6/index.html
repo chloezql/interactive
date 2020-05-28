@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en-us">
+	<head>
+<!-- TODO:    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+
+	<script language="javascript" type="text/javascript" src="../libraries/aframe.min.js"></script>
+ -->
+
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<meta charset="UTF-8">
+
+		<!-- P5 libraries -->
+
+		<script language="javascript" type="text/javascript" src="../libraries/p5.min.js"></script>
+
+		<!-- A-Frame libraries -->
+	<script language="javascript" type="text/javascript" src="../libraries/aframe.min.js"></script>
+
+
+		<!-- AFrameP5 library -->
+		<script language="javascript" type="text/javascript" src="../libraries/aframep5.js"></script>
+
+		<!-- P5 Sketch -->
+		<script language="javascript" type="text/javascript" src="sketch.js"></script>
+
+			<script language="javascript" type="text/javascript" src="../libraries/p5.sound.min.js"></script>
+
+			<script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
+
+
+
+			<script>
+ AFRAME.registerComponent('add-number', {
+    init: function () {
+     this.display = document.querySelector("#display");
+     this.el.addEventListener("click",this.onClick.bind(this));
+    },
+    onClick:function()
+    {
+      var num = parseInt(this.el.components.text.data.value);
+			var displayValue = parseInt(this.display.components.text.data.value);
+      var sum = displayValue+num;
+			if(sum %2 ==1){
+				  this.display.setAttribute("text","value",sum.toString());
+					this.display.setAttribute("opacity","0.8");
+			}else{
+				this.display.setAttribute("text","value",sum.toString());
+					this.display.setAttribute("opacity","0.1");
+			}
+
+
+    }
+  });
+</script>
+
+		<!-- custom styles -->
+		<style>
+			body {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+
+		<!-- container to hold our VR scene - make sure to give this element an ID of 'VRScene' -->
+	    <a-scene id="VRScene">
+
+	    	<!--
+		       The 'a-assets' container is used to load in any external artwork you may want to use as "textures" for your objects.
+		       Ensure that this element has an ID of 'VRAssets'
+
+		       Textures can be loaded by creating a new 'a-asset' tag inside of the 'a-assets' container.
+		       When doing this you will need to make sure to give your textures a unique ID -
+		       this will be used by p5 to create new objects.
+
+		       Example:
+
+		       <img id="ITEM_ID_GOES_HERE" src="images/gold_block.png">
+			-->
+      <a-entity cursor raycaster="far: 20; interval: 1000; objects: .clickable"></a-entity>
+
+
+
+
+
+
+
+
+
+
+			<a-assets id="VRAssets">
+				 <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
+
+        <a-asset id="robot_obj" src="models/rhino/rhinoceros.obj"></a-asset>
+        <a-asset id="robot_mtl" src="models/rhino/rhinoceros.mtl"></a-asset>
+
+				<a-asset id="goato" src="models/goat/Goat.obj"></a-asset>
+				<a-asset id="goatm" src="models/goat/Goat.mtl"></a-asset>
+
+				<a-asset id="ostricho" src="models/ostrich/Ostrich.obj"></a-asset>
+				<a-asset id="ostrichm" src="models/ostrich/Ostrich.mtl"></a-asset>
+
+				<a-asset id="ferreto" src="models/ferret/Ferret.obj"></a-asset>
+				<a-asset id="ferretm" src="models/ferret/Ferret.mtl"></a-asset>
+
+				<a-asset id="foxo" src="models/fox/model.obj"></a-asset>
+				<a-asset id="foxm" src="models/fox/materials.mtl"></a-asset>
+
+				<a-asset id="pugo" src="models/pug/model.obj"></a-asset>
+				<a-asset id="pugm" src="models/pug/materials.mtl"></a-asset>
+
+				<a-asset id="cowo" src="models/cow/model.obj"></a-asset>
+				<a-asset id="cowm" src="models/cow/materials.mtl"></a-asset>
+
+				<a-asset id="crabo" src="models/crab/model.obj"></a-asset>
+				<a-asset id="crabm" src="models/crab/materials.mtl"></a-asset>
+
+				<a-asset id="parroto" src="models/parrot/model.obj"></a-asset>
+				<a-asset id="parrotm" src="models/parrot/materials.mtl"></a-asset>
+
+				<a-asset id="squirrelo" src="models/squirrel/model.obj"></a-asset>
+				<a-asset id="squirrelm" src="models/squirrel/materials.mtl"></a-asset>
+
+				<a-asset id="whaleo" src="models/whale/model.obj"></a-asset>
+				<a-asset id="whalem" src="models/whale/materials.mtl"></a-asset>
+
+				 <audio id="whalesound" src="resources/Whale2.mp3" preload="auto"></audio>
+
+
+					<img src="images/background.jpg" id="sky1">
+
+          <a-mixin id="cube" geometry="primitive: box"></a-mixin>
+          <a-mixin id="cube-hovered" material="color: magenta"></a-mixin>
+          <a-mixin id="cube-selected" material="color: cyan"></a-mixin>
+          <a-mixin id="red" material="color: red"></a-mixin>
+          <a-mixin id="green" material="color: green"></a-mixin>
+          <a-mixin id="blue" material="color: blue"></a-mixin>
+          <a-mixin id="yellow" material="color: yellow"></a-mixin>
+          <a-mixin id="sphere" geometry="primitive: sphere"></a-mixin>
+
+			</a-assets>
+
+			<a-sky color="#6EBAA7"></a-sky>
+
+
+
+			<a-entity camera  look-controls
+            position="0 1.764 0">
+    <a-entity cursor="fuse: true; fuseTimeout: 500" position="0 0 -1"
+              geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;" material="color: #CCC; shader: flat;">
+    </a-entity>
+  </a-entity>
+
+
+
+	<a-entity text-geometry="value: RealZoo" position="-5,7,0"></a-entity>
+	 <a-entity text-geometry="value: 3D; font: #optimerBoldFont; " position="-2.5,7,0"></a-entity>
+	 <a-entity text-geometry="value:Click on primitive above each island to move. Click on animal to listen to its sound.
+	  ; font: #optimerBoldFont; size:0.4 " position="-1,2,0"></a-entity>
+
+
+
+  <!-- Lighting -->
+  <a-light type="ambient" color="#fff"></a-light>
+
+
+
+	    </a-scene>
+
+	</body>
+</html>
